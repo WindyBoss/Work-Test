@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
 import withRouter from "helpers/withRouter";
@@ -9,10 +9,8 @@ import { getCategory } from "service/apolloClient";
 
 import MainContainer from "components/MainContainer";
 import { CategoryTitle } from "./CategoryPage.styled";
-
 import ProductList from "./components/ProductList";
-
-class CategoryPage extends Component {
+class CategoryPage extends PureComponent {
   state = {
     chosenCategory: null,
   };

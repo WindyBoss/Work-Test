@@ -1,18 +1,21 @@
 /** @format */
 
 import findTotalAmount from "helpers/findTotalAmount";
+import { PureComponent } from "react";
 
 import {
-    TotalContainer,
-    TotalEl,
-    TotalAmount,
-    Symbol,
-  } from "./CartTotal.styled";
+  TotalContainer,
+  TotalEl,
+  TotalAmount,
+  Symbol,
+} from "./CartTotal.styled";
 
-export default function CartTotal({ symbol, cart, currency }) {
-  return (
-    <div>
-      <TotalContainer>
+export default class CartTotal extends PureComponent {
+  render() {
+    const { symbol, cart, currency } = this.props;
+    return (
+      <div>
+        <TotalContainer>
           <TotalEl>
             Tax 21%
             <TotalAmount>
@@ -33,7 +36,8 @@ export default function CartTotal({ symbol, cart, currency }) {
               {findTotalAmount(cart, currency)}
             </TotalAmount>
           </TotalEl>
-      </TotalContainer>
-    </div>
-  );
+        </TotalContainer>
+      </div>
+    );
+  }
 }

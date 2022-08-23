@@ -1,5 +1,6 @@
 /** @format */
 
+import { PureComponent } from "react";
 import {
   DropDownListContainer,
   DropDownList,
@@ -7,25 +8,28 @@ import {
   CurrencySymbol,
 } from "./CurrencyContainer.styled";
 
-export default function CurrencyContainer({ currencies, onClick }) {
-  return (
-    <>
-      <DropDownListContainer>
-        <DropDownList>
-          {currencies.map((currency) => {
-            return (
-              <ListItem
-                key={currency.label}
-                value={currency.label}
-                onClick={() => onClick(currency)}
-              >
-                <CurrencySymbol>{currency.symbol}</CurrencySymbol>
-                {currency.label}
-              </ListItem>
-            );
-          })}
-        </DropDownList>
-      </DropDownListContainer>
-    </>
-  );
+export default class CurrencyContainer extends PureComponent {
+  render() {
+    const { currencies, onClick } = this.props;
+    return (
+      <>
+        <DropDownListContainer>
+          <DropDownList>
+            {currencies.map((currency) => {
+              return (
+                <ListItem
+                  key={currency.label}
+                  value={currency.label}
+                  onClick={() => onClick(currency)}
+                >
+                  <CurrencySymbol>{currency.symbol}</CurrencySymbol>
+                  {currency.label}
+                </ListItem>
+              );
+            })}
+          </DropDownList>
+        </DropDownListContainer>
+      </>
+    );
+  }
 }

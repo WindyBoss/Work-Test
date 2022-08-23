@@ -23,7 +23,7 @@ export default class Product extends PureComponent {
   };
 
   handleClick(e) {
-    const { action } = e.currentTarget.dataset;
+    const { action } = e.target.dataset;
     const { gallery } = this.props.product;
 
     if (action === "increment") {
@@ -124,7 +124,7 @@ export default class Product extends PureComponent {
               width="auto"
               height="auto"
             />
-            {mainCart && (
+            {mainCart && gallery.length > 1 && (
               <ImageSwitcher handleClick={this.handleClick.bind(this)} />
             )}
           </ImageContainer>

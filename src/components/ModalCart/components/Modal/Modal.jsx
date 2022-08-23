@@ -1,12 +1,12 @@
 /** @format */
-import { Component } from "react";
+import { PureComponent } from "react";
 import { createPortal } from "react-dom";
 
 import { Backdrop, ModalContent } from "./Modal.styled";
 
 const modalRoot = document.querySelector("#modal-root");
 
-export default class Modal extends Component {
+export default class Modal extends PureComponent {
   handleBackBackdropClick = (e) => {
     const { onClose } = this.props;
 

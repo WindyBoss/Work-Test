@@ -1,24 +1,32 @@
 /** @format */
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-import AppBar from "./components/AppBar";
-import CategoryPage from "./pages/CategoryPage";
-import ProductPage from "pages/ProductPage";
-import Cart from "pages/Cart";
+const AppBar = lazy(() => import("./components/AppBar"));
+const CategoryPage = lazy(() => import("./pages/CategoryPage"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
+const Cart = lazy(() => import("./pages/Cart"));
+const NoLoadPage = lazy(() => import("./pages/NoLoadPage"));
+const HomePage = lazy(() => import("./pages/HomePage"));
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AppBar />}>
-            <Route path="category/:categoryId" element={<CategoryPage />} />
-            <Route path="product/:productId" element={<ProductPage />} />
-
-            <Route path="cart" element={<Cart />} />
-          </Route>
-        </Routes>
+        <Suspense fallback={<></>}>
+          <Routes>
+            <Route path="/" element={<AppBar />}>
+              <Route index element={<HomePage />} />
+              <Route path="category/:categoryId" element={<CategoryPage />}>
+                <Route path="*" element={<NoLoadPage />} />
+              </Route>
+              <Route path="product/:productId" element={<ProductPage />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="*" element={<NoLoadPage />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   );

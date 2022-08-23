@@ -28,8 +28,8 @@ root.render( <
     <
     Toaster / >
     <
-    /Provider> <
-    /ApolloProvider> <
-    /PersistGate> <
-    /React.StrictMode>
+    /Provider>{" "} < /
+    ApolloProvider > { " " } <
+    /PersistGate>{" "} < /
+    React.StrictMode >
 );

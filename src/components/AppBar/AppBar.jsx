@@ -65,7 +65,6 @@ class AppBar extends Component {
           currencies={currencies}
           setCurrency={setCurrency}
           toggleCurrency={this.toggleCurrency.bind(this)}
-          toggleModal={this.toggleModal}
           itemAmount={itemAmount}
         />
         <Outlet />
