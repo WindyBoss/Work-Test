@@ -10,6 +10,7 @@ import InfoContainer from "./components/InfoContainer";
 import { addProduct } from "redux/cart/cartSlice";
 
 import MainContainer from "components/MainContainer";
+import ErrorBoundary from "components/ErrorBoundary";
 
 import { getProduct } from "service/apolloClient";
 
@@ -19,16 +20,19 @@ class ProductPage extends Component {
   state = {
     productData: null,
     chosenImage: "",
+    error: false,
   };
 
   async componentDidMount() {
     const { params } = this.props;
-    const data = await getProduct(params.productId);
+    const { product } = await getProduct(params.productId);
 
-    this.setState({
-      productData: data.product,
-      chosenImage: data.product.gallery[0],
-    });
+    product
+      ? this.setState({
+          productData: product,
+          chosenImage: product.gallery[0],
+        })
+      : this.setState({ error: true });
   }
 
   handleClick(image) {
@@ -36,7 +40,7 @@ class ProductPage extends Component {
   }
 
   render() {
-    const { productData, chosenImage } = this.state;
+    const { productData, chosenImage, error } = this.state;
     const { currency, addProduct } = this.props;
 
     return (
@@ -55,6 +59,8 @@ class ProductPage extends Component {
             />
           </ProductDataContainer>
         )}
+
+        {error && <ErrorBoundary />}
       </MainContainer>
     );
   }

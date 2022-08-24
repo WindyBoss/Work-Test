@@ -3,12 +3,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-const AppBar = lazy(() => import("./components/AppBar"));
-const CategoryPage = lazy(() => import("./pages/CategoryPage"));
-const ProductPage = lazy(() => import("./pages/ProductPage"));
-const Cart = lazy(() => import("./pages/Cart"));
-const NoLoadPage = lazy(() => import("./pages/NoLoadPage"));
-const HomePage = lazy(() => import("./pages/HomePage"));
+const AppBar = lazy(() => import("components/AppBar"));
+const CategoryPage = lazy(() => import("pages/CategoryPage"));
+const ProductPage = lazy(() => import("pages/ProductPage"));
+const Cart = lazy(() => import("pages/Cart"));
+const NoLoadPage = lazy(() => import("pages/NoLoadPage"));
+const HomePage = lazy(() => import("pages/HomePage"));
 
 function App() {
   return (

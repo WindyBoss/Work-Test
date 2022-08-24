@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 
 import MainHeader from "./components/MainHeader";
 
+import ErrorBoundary from "components/ErrorBoundary";
+
 class AppBar extends Component {
   state = {
     categories: [],
@@ -15,11 +17,18 @@ class AppBar extends Component {
     isOpen: false,
     chosenCurrency: this.props.currency.currency,
     cartShown: false,
+    error: false,
   };
 
   async componentDidMount() {
-    const data = await getAllCategories();
-    this.setState({ categories: data.categories, currencies: data.currencies });
+    const { categories, currencies } = await getAllCategories();
+
+    categories && currencies
+      ? this.setState({
+          categories: categories,
+          currencies: currencies,
+        })
+      : this.setState({ error: true });
   }
 
   componentDidUpdate(prevProps) {
@@ -49,7 +58,7 @@ class AppBar extends Component {
   }
 
   render() {
-    const { categories, currencies, isOpen, chosenCurrency, cartShown } =
+    const { categories, currencies, isOpen, chosenCurrency, cartShown, error } =
       this.state;
     const { setCurrency, cart } = this.props;
     const itemAmount = cart.reduce((acc, item) => acc + item.amount, 0);
@@ -68,6 +77,7 @@ class AppBar extends Component {
           itemAmount={itemAmount}
         />
         <Outlet />
+        {error && <ErrorBoundary />}
       </div>
     );
   }

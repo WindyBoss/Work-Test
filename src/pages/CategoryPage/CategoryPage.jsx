@@ -8,11 +8,14 @@ import withRouter from "helpers/withRouter";
 import { getCategory } from "service/apolloClient";
 
 import MainContainer from "components/MainContainer";
+import ErrorBoundary from "components/ErrorBoundary";
+
 import { CategoryTitle } from "./CategoryPage.styled";
 import ProductList from "./components/ProductList";
 class CategoryPage extends PureComponent {
   state = {
     chosenCategory: null,
+    error: false,
   };
 
   async componentDidUpdate(prevProps) {
@@ -24,21 +27,24 @@ class CategoryPage extends PureComponent {
   }
 
   async componentDidMount() {
+    this.setState({ error: false });
     await this.makeFetch();
   }
 
   async makeFetch() {
     const { params } = this.props;
+    const { category } = await getCategory(params.categoryId);
 
-    const data = await getCategory(params.categoryId);
-    this.setState({
-      chosenCategory: data.category,
-    });
+    category
+      ? this.setState({
+          chosenCategory: category,
+        })
+      : this.setState({ error: true });
   }
 
   render() {
     const { currency, setProduct } = this.props;
-    const { chosenCategory } = this.state;
+    const { chosenCategory, error } = this.state;
 
     return (
       <MainContainer>
@@ -52,6 +58,7 @@ class CategoryPage extends PureComponent {
             />
           </>
         )}
+        {error && <ErrorBoundary />}
         <Outlet />
       </MainContainer>
     );
