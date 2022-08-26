@@ -77,7 +77,6 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  category: state.category,
   currency: state.currency.currency,
   cart: state.cart.cart,
 });
